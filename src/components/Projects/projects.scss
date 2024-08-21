@@ -14,7 +14,7 @@
 .project-list-wrapper {
     display: grid;
     flex-wrap: wrap;
-    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
     margin-top: 30px;
     gap: 40px;
 
@@ -27,6 +27,7 @@
         padding: 10px;
         cursor: pointer;
         transition: all 0.3s ease-in-out;
+        border-bottom: 2px solid #1e391e;
 
         &:hover {
             box-shadow: rgba(0, 0, 0, 0.15) 0px 15px 25px, rgba(0, 0, 0, 0.05) 0px 5px 10px;

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { loginAsync } from "../../features/auth/authAsyncActions";
+import { loginAsync } from "../../store/features/auth/authAsyncActions";
 import { useNavigate } from "react-router-dom";
 import "./login.scss";
 
