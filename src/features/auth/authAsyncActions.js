@@ -18,7 +18,7 @@ export const loginAsync = createAsyncThunk(
       return data; // Assume this is the user object or token
     } else {
       //   return thunkAPI.rejectWithValue("Invalid credentials");
-      return true;
+      return { username };
     }
   }
 );

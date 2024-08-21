@@ -1,8 +1,15 @@
 import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Login from "./pages/Login";
-import Home from "./pages/Home";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
+import Login from "./pages/Login/Login";
+import Home from "./pages/Home/Home";
 import PrivateRoute from "./components/PrivateRoute";
+import Projects from "./components/Projects/Projects";
+import Users from "./components/Users/Users";
 
 function App() {
   return (
@@ -16,7 +23,11 @@ function App() {
               <Home />
             </PrivateRoute>
           }
-        />
+        >
+          <Route index element={<Navigate to="projects" />} />
+          <Route path="projects" element={<Projects />} />
+          <Route path="users" element={<Users />} />
+        </Route>
       </Routes>
     </Router>
   );
