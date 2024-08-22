@@ -10,6 +10,26 @@
     color: #848d97;
 }
 
+.content-wrapper {
+    display: flex;
+    justify-content: space-between;
+
+    .controls {
+        align-self: end;
+        display: flex;
+        gap: 20px;
+
+        .search-box {
+            border: none;
+            border-bottom: 2px solid #848d97;
+            background-color: transparent;
+            height: 30px;
+            width: 220px;
+            font-size: 14px;
+        }
+    }
+}
+
 
 .project-list-wrapper {
     display: grid;

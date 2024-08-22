@@ -10,6 +10,27 @@
     color: #848d97;
 }
 
+.content-wrapper {
+    display: flex;
+    justify-content: space-between;
+
+    .controls {
+        align-self: end;
+        display: flex;
+        gap: 20px;
+
+        .search-box {
+            border: none;
+            border-bottom: 2px solid #848d97;
+            background-color: transparent;
+            height: 30px;
+            width: 220px;
+            font-size: 14px;
+        }
+    }
+}
+
+
 .users-list {
 
     table {
@@ -53,6 +74,25 @@
                 &:not(:last-child) {
                     border-bottom: 1px solid #efefef;
                 }
+            }
+        }
+
+        @media screen and (max-width: 768px) {
+            th, td {
+                display: block;
+                width: 100%;
+            }
+            td {
+                position: relative;
+            }
+            td::before {
+                content: attr(data-label);
+                position: absolute;
+                left: 0;
+                width: 45%;
+                padding-left: 10px;
+                font-weight: bold;
+                white-space: nowrap;
             }
         }
     }
