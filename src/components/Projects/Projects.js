@@ -3,8 +3,9 @@ import useDebounce from "../../hooks/useDebounce";
 import "./projects.scss";
 
 import projectLogo from "../../assets/images/option.png";
-import { useAppDispatch } from "../../hooks/reduxHooks";
+import { useAppDispatch, useAppSelector } from "../../hooks/reduxHooks";
 import { GET } from "../../services/api";
+import ContentHeader from "../ContentHeader/contentHeader";
 
 const Projects = () => {
   const dispatch = useAppDispatch();
@@ -12,6 +13,7 @@ const Projects = () => {
   const [date, setDate] = useState("");
   const searchParam = useDebounce(search, 800);
   const projects = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14];
+  // const projects = useAppSelector((state) => state.project.projectList);
 
   useEffect(() => {
     console.log(search);
@@ -22,26 +24,7 @@ const Projects = () => {
 
   return (
     <div className="projects-page">
-      <div className="content-wrapper">
-        <div>
-          <h1 className="heading">Projects</h1>
-          <p className="tagline">Here is the project list you have created</p>
-        </div>
-        <div className="controls">
-          <input
-            className="search-box"
-            type="text"
-            onChange={(e) => setSearch(e.target.value)}
-            placeholder="Search"
-          />
-          <input
-            className="search-box"
-            type="date"
-            onChange={(e) => setDate(e.target.value)}
-            placeholder="Date"
-          />
-        </div>
-      </div>
+      <ContentHeader setDate={setDate} setSearch={setSearch} />
 
       <div className="project-list-wrapper">
         {projects.map((item) => (

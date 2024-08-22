@@ -1,11 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { GET } from "../../services/api";
 
-const userList = [];
-const initialState = { userList: userList };
+const initialState = { userList: [] };
 
 export const UserSlice = createSlice({
-  name: "projects",
+  name: "users",
   initialState,
   reducers: {},
   extraReducers: (builder) => {
