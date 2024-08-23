@@ -1,13 +1,13 @@
 import React from "react";
 import "./contentHeader.scss";
 
-const ContentHeader = ({ setSearch, setDate }) => {
+const ContentHeader = ({ setSearch, setDate, heading, tagline }) => {
   return (
     <div className="projects-page">
       <div className="content-wrapper">
         <div>
-          <h1 className="heading">Projects</h1>
-          <p className="tagline">Here is the project list you have created</p>
+          <h1 className="heading">{heading}</h1>
+          <p className="tagline">{tagline}</p>
         </div>
         <div className="controls">
           <input
