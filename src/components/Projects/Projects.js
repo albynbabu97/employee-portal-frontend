@@ -20,15 +20,22 @@ const Projects = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    dispatch(POST("projectListSearch", "/projects/search", {
-      name: search,
-      date: date
-    })());
+    dispatch(
+      POST("projectListSearch", "/projects/search", {
+        name: search,
+        date: date,
+      })()
+    );
   }, [searchParam, date, dispatch]);
 
   return (
     <div className="projects-page">
-      <ContentHeader setDate={setDate} setSearch={setSearch} heading="Projects" tagline="Here is the project list you have created"/>
+      <ContentHeader
+        setDate={setDate}
+        setSearch={setSearch}
+        heading="Projects"
+        tagline="Here is the project list you have created"
+      />
 
       <div className="project-list-wrapper">
         {projects.length > 0 ? (
@@ -39,12 +46,18 @@ const Projects = () => {
                 <img src={projectLogo} alt="logo" width={100} height={100} />
                 <div className="title-section">
                   <div className="project-title">{item.name}</div>
-                  <div className="project-duration">{item.created_at}</div>
+                  <div className="project-duration">
+                    {new Date(item.created_at).toLocaleDateString("en-US", {
+                      year: "numeric",
+                      month: "long",
+                      day: "numeric",
+                    })}
+                  </div>
                 </div>
               </div>
               <p className="project-description">
-                This setup will ensure that whenever the user navigates to /page1,
-                they are automatically redirected to the
+                This setup will ensure that whenever the user navigates to
+                /page1, they are automatically redirected to the
               </p>
             </div>
           ))
@@ -52,7 +65,6 @@ const Projects = () => {
           <NoResults content="No Projects found!" />
         )}
       </div>
-
     </div>
   );
 };

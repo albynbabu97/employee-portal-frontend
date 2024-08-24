@@ -1,7 +1,8 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
-import { loginAsync } from "../../store/features/auth/authAsyncActions";
+import React, { useEffect, useState } from "react";
+import { useAppDispatch, useAppSelector } from "../../hooks/reduxHooks";
+// import { loginAsync } from "../../store/features/auth/authAsyncActions";
 import { useNavigate } from "react-router-dom";
+import { POST } from "../../services/api";
 import "./login.scss";
 
 import loginAvatar from "../../assets/images/login/login-avatar.png";
@@ -10,8 +11,16 @@ const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
+
+  const { isLoggedIn } = useAppSelector((state) => state.auth.isLoggedIn);
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      navigate("/home");
+    }
+  }, [isLoggedIn, navigate]);
 
   const handleLogin = async () => {
     setError(""); // Reset error message on each submit attempt
@@ -23,8 +32,13 @@ const Login = () => {
     }
 
     try {
-      // Dispatch loginAsync thunk and unwrap the result
-      await dispatch(loginAsync({ username, password })).unwrap();
+      dispatch(
+        POST("userLogin", "/login", {
+          email: username,
+          password: password,
+        })()
+      );
+      // await dispatch(loginAsync({ username, password })).unwrap();
       navigate("/home");
     } catch (err) {
       setError("Login failed: " + err.message);

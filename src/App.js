@@ -10,6 +10,7 @@ import Home from "./pages/Home/Home";
 import PrivateRoute from "./components/PrivateRoute";
 import Projects from "./components/Projects/Projects";
 import Users from "./components/Users/Users";
+import "./services/interceptor";
 
 function App() {
   return (

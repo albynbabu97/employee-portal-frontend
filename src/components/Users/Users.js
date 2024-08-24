@@ -18,15 +18,22 @@ const Users = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    dispatch(POST("userListSearch", "/users/search", {
-      name: search,
-      date: date
-    })());
+    dispatch(
+      POST("userListSearch", "/users/search", {
+        name: search,
+        date: date,
+      })()
+    );
   }, [searchParam, date, dispatch]);
 
   return (
     <div className="users-page">
-      <ContentHeader setDate={setDate} setSearch={setSearch} heading="Users" tagline="Here is the users list" />
+      <ContentHeader
+        setDate={setDate}
+        setSearch={setSearch}
+        heading="Users"
+        tagline="Here is the users list"
+      />
 
       <div className="users-list">
         {users.length > 0 ? (
@@ -45,10 +52,16 @@ const Users = () => {
               {users.map((item, index) => (
                 <tr key={item.id}>
                   <td>{index + 1}</td>
-                  <td>{item.first_name + ' ' + item.last_name}</td>
+                  <td>{item.first_name + " " + item.last_name}</td>
                   <td>{item.email}</td>
                   <td>{item.phone_number}</td>
-                  <td>{item.dob}</td>
+                  <td>
+                    {new Date(item.dob).toLocaleDateString("en-US", {
+                      year: "numeric",
+                      month: "numeric",
+                      day: "numeric",
+                    })}
+                  </td>
                   {/* <td>{item.dob}</td> */}
                 </tr>
               ))}
@@ -58,7 +71,6 @@ const Users = () => {
           <NoResults content="No Users found!" />
         )}
       </div>
-
     </div>
   );
 };

@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { logout } from "../../../store/features/auth/authSlice";
+// import { logout } from "../../../store/features/authSlice";
 import { NavLink, useNavigate } from "react-router-dom";
 import "./header.scss";
 
@@ -10,7 +10,7 @@ const Header = () => {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    dispatch(logout());
+    // dispatch(logout());
     navigate("/");
   };
 
@@ -22,7 +22,7 @@ const Header = () => {
   return (
     <div className="header-wrapper">
       <div className="top-content">
-        <div className="logo">{user.username.charAt(0)}</div>
+        <div className="logo">{user?.username?.charAt(0)}</div>
         <ul>
           <li>
             <NavLink
