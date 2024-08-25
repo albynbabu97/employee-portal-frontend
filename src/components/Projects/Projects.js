@@ -26,6 +26,7 @@ const Projects = () => {
         date: date,
       })()
     );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchParam, date, dispatch]);
 
   return (

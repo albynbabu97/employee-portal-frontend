@@ -3,9 +3,8 @@ import { GET, POST } from "../../services/api";
 
 const projectList = [];
 const initialState = { projectList: projectList };
-const getProjectListUrl = process.env.REACT_APP_BASE_URL + '/projects';
-const getProjectSearchUrl = process.env.REACT_APP_BASE_URL + '/projects/search';
-
+const getProjectListUrl = process.env.REACT_APP_BASE_URL + "/projects";
+const getProjectSearchUrl = process.env.REACT_APP_BASE_URL + "/projects/search";
 
 export const ProjectSlice = createSlice({
   name: "projects",
@@ -24,8 +23,6 @@ export const ProjectSlice = createSlice({
       GET("projectList", getProjectListUrl).fulfilled,
       (state, action) => {
         state.projectList = action.payload;
-        console.log('projectList', state.projectList);
-
         console.log("fullfilled");
       }
     );
@@ -46,15 +43,16 @@ export const ProjectSlice = createSlice({
       POST("projectListSearch", getProjectSearchUrl).fulfilled,
       (state, action) => {
         state.projectList = action.payload;
-        console.log('projectList', state.projectList);
-
         console.log("fullfilled");
       }
     );
-    builder.addCase(POST("projectListSearch", getProjectSearchUrl).rejected, (state) => {
-      console.log("error");
-      state.projectList = [];
-    });
+    builder.addCase(
+      POST("projectListSearch", getProjectSearchUrl).rejected,
+      (state) => {
+        console.log("error");
+        state.projectList = [];
+      }
+    );
   },
 });
 

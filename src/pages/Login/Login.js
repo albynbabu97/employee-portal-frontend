@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../hooks/reduxHooks";
-// import { loginAsync } from "../../store/features/auth/authAsyncActions";
 import { useNavigate } from "react-router-dom";
 import { POST } from "../../services/api";
+import ModalRegisterForm from "../../components/RegisterModal/RegisterModal";
+import { setRegisterFormClose } from "../../store/features/authSlice";
 import "./login.scss";
 
 import loginAvatar from "../../assets/images/login/login-avatar.png";
@@ -10,11 +11,17 @@ import loginAvatar from "../../assets/images/login/login-avatar.png";
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+  const [localError, setLocalError] = useState("");
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const openModal = () => setModalIsOpen(true);
+  const closeModal = () => {
+    setModalIsOpen(false);
+    dispatch(setRegisterFormClose());
+  };
 
-  const { isLoggedIn } = useAppSelector((state) => state.auth.isLoggedIn);
+  const { isLoggedIn, status, error } = useAppSelector((state) => state.auth);
 
   useEffect(() => {
     if (isLoggedIn) {
@@ -22,12 +29,19 @@ const Login = () => {
     }
   }, [isLoggedIn, navigate]);
 
+  useEffect(() => {
+    if (status === "failed") {
+      setLocalError("Login failed. " + error);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [status]);
+
   const handleLogin = async () => {
-    setError(""); // Reset error message on each submit attempt
+    setLocalError(""); // Reset error message on each submit attempt
 
     // Check if both fields are filled
     if (!username || !password) {
-      setError("Both username and password are required.");
+      setLocalError("Both username and password are required.");
       return;
     }
 
@@ -38,10 +52,9 @@ const Login = () => {
           password: password,
         })()
       );
-      // await dispatch(loginAsync({ username, password })).unwrap();
       navigate("/home");
     } catch (err) {
-      setError("Login failed: " + err.message);
+      setLocalError("Login failed: " + err.message);
     }
   };
 
@@ -59,7 +72,7 @@ const Login = () => {
         </div>
         <div className="right-div">
           <div className="register-btn">
-            Not a member? <span>Register Now</span>
+            Not a member? <span onClick={openModal}>Register Now</span>
           </div>
           <h1>Login here!</h1>
           <input
@@ -82,9 +95,10 @@ const Login = () => {
           >
             Login
           </button>
-          {error && <p className="error-message">{error}</p>}
+          {localError && <p className="error-message">{localError}</p>}
         </div>
       </div>
+      <ModalRegisterForm isOpen={modalIsOpen} onRequestClose={closeModal} />
     </div>
   );
 };

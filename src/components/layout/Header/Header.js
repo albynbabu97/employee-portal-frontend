@@ -1,8 +1,8 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-// import { logout } from "../../../store/features/authSlice";
 import { NavLink, useNavigate } from "react-router-dom";
 import "./header.scss";
+import { POST } from "../../../services/api";
 
 const Header = () => {
   const { isLoggedIn, user } = useSelector((state) => state.auth);
@@ -10,7 +10,7 @@ const Header = () => {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    // dispatch(logout());
+    dispatch(POST("userLogout", "/logout", {})());
     navigate("/");
   };
 
