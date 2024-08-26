@@ -22,26 +22,32 @@ const Header = () => {
   return (
     <div className="header-wrapper">
       <div className="top-content">
-        <div className="logo">{user?.username?.charAt(0)}</div>
+        <div className="logo">Employee Portal</div>
         <ul>
           <li>
             <NavLink
               to="/home/projects"
               activeclassname="active"
               className="projects-nav"
-            ></NavLink>
+            >
+              Projects
+            </NavLink>
           </li>
           <li>
             <NavLink
               to="/home/users"
               activeclassname="active"
               className="users-nav"
-            ></NavLink>
+            >
+              Users
+            </NavLink>
           </li>
         </ul>
       </div>
       <div className="user-details">
-        <button className="logout-btn" onClick={handleLogout}></button>
+        <button className="logout-btn" onClick={handleLogout}>
+          Logout
+        </button>
       </div>
     </div>
   );

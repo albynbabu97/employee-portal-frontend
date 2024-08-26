@@ -61,19 +61,7 @@ const Login = () => {
   return (
     <div className="login-wrapper">
       <div className="login-box">
-        <div className="left-div">
-          <img
-            width={100}
-            height={100}
-            className="login-avatar"
-            src={loginAvatar}
-            alt="login avatar"
-          />
-        </div>
         <div className="right-div">
-          <div className="register-btn">
-            Not a member? <span onClick={openModal}>Register Now</span>
-          </div>
           <h1>Login here!</h1>
           <input
             type="text"
@@ -95,6 +83,9 @@ const Login = () => {
           >
             Login
           </button>
+          <div className="register-btn">
+            Not a member? <span onClick={openModal}>Register Now</span>
+          </div>
           {localError && <p className="error-message">{localError}</p>}
         </div>
       </div>

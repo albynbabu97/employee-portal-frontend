@@ -18,32 +18,23 @@
     gap: 40px;
 
     .project-item {
-        border-radius: 26px;
         background-color: #ffffff;
         width: 260px;
-        box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
+        border: 1px solid #000000;
         position: relative;
         padding: 10px;
-        cursor: pointer;
         transition: all 0.3s ease-in-out;
-        border-bottom: 2px solid #1e391e;
-
-        &:hover {
-            box-shadow: rgba(0, 0, 0, 0.15) 0px 15px 25px, rgba(0, 0, 0, 0.05) 0px 5px 10px;
-        }
 
         .project-type {
             width: fit-content;
-            background-color: #eaeeff;
-            color: #66829e;
             font-size: 12px;
-            padding: 2px 8px;
-            border-radius: 20px;
-            margin: 20px;
+            margin: 0 20px 10px 20px;
+            text-decoration: underline;
         }
 
         .project-title-wrapper {
             display: flex;
+            padding: 0 10px;
 
             img {
                 width: 32px;
@@ -63,7 +54,6 @@
         }
 
         .project-duration {
-            color: #66829e;
             padding: 0 10px;
             font-size: 12px;
             text-transform: capitalize;
@@ -73,7 +63,6 @@
             padding: 0 20px;
             margin: 20px 0;
             font-size: 14px;
-            color: #919aa3;
         }
 
     }

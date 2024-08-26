@@ -7,7 +7,7 @@ const ContentHeader = ({ setSearch, setDate, heading, tagline }) => {
       <div className="content-wrapper">
         <div>
           <h1 className="heading">{heading}</h1>
-          <p className="tagline">{tagline}</p>
+          {/* <p className="tagline">{tagline}</p> */}
         </div>
         <div className="controls">
           <input

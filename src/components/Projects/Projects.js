@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import useDebounce from "../../hooks/useDebounce";
 import "./projects.scss";
 
-import projectLogo from "../../assets/images/option.png";
 import { useAppDispatch, useAppSelector } from "../../hooks/reduxHooks";
 import { GET, POST } from "../../services/api";
 import ContentHeader from "../ContentHeader/contentHeader";
@@ -44,7 +43,6 @@ const Projects = () => {
             <div className="project-item" key={item.id}>
               <div className="project-type">{item.stream}</div>
               <div className="project-title-wrapper">
-                <img src={projectLogo} alt="logo" width={100} height={100} />
                 <div className="title-section">
                   <div className="project-title">{item.name}</div>
                   <div className="project-duration">
