@@ -11,12 +11,14 @@ import PrivateRoute from "./components/PrivateRoute";
 import Projects from "./components/Projects/Projects";
 import Users from "./components/Users/Users";
 import "./services/interceptor";
+import RegisterForm from "./components/RegisterModal/RegisterModal";
 
 function App() {
   return (
     <Router>
       <Routes>
         <Route path="/" element={<Login />} />
+        <Route path="/register" element={<RegisterForm />} />
         <Route
           path="/home"
           element={

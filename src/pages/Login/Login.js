@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../hooks/reduxHooks";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { POST } from "../../services/api";
 import ModalRegisterForm from "../../components/RegisterModal/RegisterModal";
 import { setRegisterFormClose } from "../../store/features/authSlice";
@@ -14,14 +14,12 @@ const Login = () => {
   const [localError, setLocalError] = useState("");
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const [modalIsOpen, setModalIsOpen] = useState(false);
-  const openModal = () => setModalIsOpen(true);
-  const closeModal = () => {
-    setModalIsOpen(false);
-    dispatch(setRegisterFormClose());
-  };
 
   const { isLoggedIn, status, error } = useAppSelector((state) => state.auth);
+
+  console.log(error);
+  
+  
 
   useEffect(() => {
     if (isLoggedIn) {
@@ -55,6 +53,8 @@ const Login = () => {
       navigate("/home");
     } catch (err) {
       setLocalError("Login failed: " + err.message);
+      console.log('hiii');
+      
     }
   };
 
@@ -84,12 +84,11 @@ const Login = () => {
             Login
           </button>
           <div className="register-btn">
-            Not a member? <span onClick={openModal}>Register Now</span>
+            Not a member? <span><NavLink to="/register">Register Now</NavLink></span>
           </div>
           {localError && <p className="error-message">{localError}</p>}
         </div>
       </div>
-      <ModalRegisterForm isOpen={modalIsOpen} onRequestClose={closeModal} />
     </div>
   );
 };

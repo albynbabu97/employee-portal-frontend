@@ -33,20 +33,37 @@ const AuthSlice = createSlice({
         state.status = "loading";
       })
       .addCase(POST("userLogin", loginUrl).fulfilled, (state, action) => {
-        const { user, token } = action.payload;
-        state.isLoggedIn = true;
-        state.token = token || "";
-        state.user = user ? { username: user.name } : null;
-        state.status = "succeeded";
-        localStorage.setItem("user", JSON.stringify({ username: user.name }));
-        localStorage.setItem("token", token || "");
+
+        if (action.payload.success) {
+          const { user, token } = action.payload.result;
+          state.isLoggedIn = true;
+          state.token = token || "";
+          state.user = user ? { username: user.name } : null;
+          state.status = "succeeded";
+          localStorage.setItem("user", JSON.stringify({ username: user.name }));
+          localStorage.setItem("token", token || "");
+        }
+        // else {
+        //   state.isLoggedIn = false;
+        //   state.user = null;
+        //   state.token = null;
+        //   state.status = "failed";
+        //   console.log(action.payload.errors);
+          
+        //   state.error = action.payload.errors || { message: "Login failed" };
+        //   localStorage.removeItem("user");
+        //   localStorage.removeItem("token");
+        // }
+
       })
       .addCase(POST("userLogin", loginUrl).rejected, (state, action) => {
+        console.log('hiii');
+        
         state.isLoggedIn = false;
         state.user = null;
         state.token = null;
         state.status = "failed";
-        state.error = action.payload || "Login failed";
+        state.error = action.payload.errors || "Login failed";
         localStorage.removeItem("user");
         localStorage.removeItem("token");
       });
@@ -58,7 +75,16 @@ const AuthSlice = createSlice({
         state.registerError = null;
       })
       .addCase(POST("userRegister", registerUrl).fulfilled, (state, action) => {
-        if (action.payload?.status) state.registerStatus = true;
+        if (action.payload?.success) {
+          state.registerStatus = true;
+          const { user, token } = action.payload.result;
+          state.isLoggedIn = true;
+          state.token = token || "";
+          state.user = user ? { username: user.name } : null;
+          state.status = "succeeded";
+          localStorage.setItem("user", JSON.stringify({ username: user.name }));
+          localStorage.setItem("token", token || "");
+        }
         // else state.registerError = action.payload?.errors;
         else
           state.registerError = [

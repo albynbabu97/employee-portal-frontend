@@ -3,12 +3,14 @@ import Modal from "react-modal";
 import "./registerModal.scss";
 import { useAppDispatch, useAppSelector } from "../../hooks/reduxHooks";
 import { POST } from "../../services/api";
+import { Navigate, NavLink, useNavigate } from "react-router-dom";
 
 // Set the app element for accessibility
-Modal.setAppElement("#root");
+// Modal.setAppElement("#root");
 
-const ModalRegisterForm = ({ isOpen, onRequestClose }) => {
+const RegisterForm = ({ isOpen, onRequestClose }) => {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const { registerStatus, registerError } = useAppSelector(
     (state) => state.auth
   );
@@ -35,18 +37,14 @@ const ModalRegisterForm = ({ isOpen, onRequestClose }) => {
     // Handle form submission
     console.log("Form submitted:", formData);
     dispatch(POST("userRegister", "/register", formData)());
+    navigate('/home');
     // onRequestClose(); // Close modal after submission
   };
 
   return (
-    <Modal
-      isOpen={isOpen}
-      onRequestClose={onRequestClose}
-      contentLabel="Form Modal"
-      className="modal"
-      overlayClassName="overlay"
-    >
-      <h2>Register</h2>
+    <div className="register-wrapper">
+
+      <h1>Register</h1>
       {registerStatus === true ? (
         <div className="response-modal">
           <div>User Registered sucesfully! Please login to continue.</div>
@@ -146,26 +144,33 @@ const ModalRegisterForm = ({ isOpen, onRequestClose }) => {
           </div>
           <div className="form-element">
             <label htmlFor="billing_type">Billing Type:</label>
-            <input
+            {/* <input
               type="text"
               id="billing_type"
               name="billing_type"
               value={formData.billing_type}
               onChange={handleChange}
               required
-            />
+            /> */}
+            <select id="billing_type"
+              name="billing_type"
+              value={formData.billing_type}
+              onChange={handleChange} required
+            >
+              <option value="" disabled>
+                Choose your billing Type
+              </option>
+              <option value="1">Billable</option>
+              <option value="0">Non Billable</option>
+            </select>
           </div>
           <div className="btn-wrapper">
             <button type="submit" className="submit-btn">
               Submit
             </button>
-            <button
-              type="button"
-              className="close-btn"
-              onClick={onRequestClose}
-            >
-              Close
-            </button>
+          </div>
+          <div className="login-btn">
+            Already a member? <span><NavLink to="/">Login</NavLink></span>
           </div>
           {registerError?.length > 0 &&
             registerError?.map((item, index) => (
@@ -175,8 +180,8 @@ const ModalRegisterForm = ({ isOpen, onRequestClose }) => {
             ))}
         </form>
       )}
-    </Modal>
+    </div>
   );
 };
 
-export default ModalRegisterForm;
+export default RegisterForm;
