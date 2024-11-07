@@ -14,7 +14,7 @@ const ContentHeader = ({ setSearch, setDate, heading, tagline }) => {
             className="search-box"
             type="text"
             onChange={(e) => setSearch(e.target.value)}
-            placeholder="Search"
+            placeholder={`Search ${heading}`}
           />
           <input
             className="search-box"
