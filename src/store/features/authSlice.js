@@ -33,7 +33,7 @@ const AuthSlice = createSlice({
         state.status = "loading";
       })
       .addCase(POST("userLogin", loginUrl).fulfilled, (state, action) => {
-        const { user, token } = action.payload;
+        const { user, token } = action.payload.result;
         state.isLoggedIn = true;
         state.token = token || "";
         state.user = user ? { username: user.name } : null;
@@ -58,8 +58,8 @@ const AuthSlice = createSlice({
         state.registerError = null;
       })
       .addCase(POST("userRegister", registerUrl).fulfilled, (state, action) => {
-        if (action.payload?.status) state.registerStatus = true;
-        // else state.registerError = action.payload?.errors;
+        if (action.payload?.result?.status) state.registerStatus = true;
+                // else state.registerError = action.payload?.errors;
         else
           state.registerError = [
             "Registration unsuccessful. Please correct the mistake and retry.",
